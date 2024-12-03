@@ -1,15 +1,29 @@
 let bullets = [];//array to store bullets in
 function setup(){
   createCanvas(400,400);
+  for(let i = 0; i < 10; i++){
+    let enemy = {
+      x: random(0, width),
+      y: random(-800,0)
+    }
+  }
 }
 
 function draw(){
-  background(220);
+  background(51);
   circle(mouseX,height-50,25);//drawing the player (a circle)
+  for(let bullet of bullets){//update and draw the bullets
+    bullet.y -= 10;//move the bullets down the screen
+    circle(bullet.x,bullet.y,10);
+  }
 }
 
 function mousePressed(){
-  let bullet = {}
+  let bullet = {//spawn a new bullet when the user clicks
+    x: mouseX,
+    y: height - 50
+  }
+  bullets.push(bullet);//adds a new bullet to the list
 }
 
 //goal for this session: get the user to shoot bullets to kill enemies coming towards them
