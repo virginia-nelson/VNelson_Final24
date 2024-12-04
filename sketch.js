@@ -2,7 +2,7 @@ let bullets = [];//array to store bullets in
 let enemies = [];//array to store enemies in
 let score = 0;
 function setup(){
-  createCanvas(400,400);
+  createCanvas(600,600);
   for(let i = 0; i < 10; i++){//spawn enemies 
     let enemy = {
       x: random(0, width),//between 0 and the width of the screen
@@ -15,10 +15,10 @@ function setup(){
 function draw(){
   background(51);
   rectMode(CENTER);
-  circle(mouseX,height-50,25);//drawing the player (a circle)
+  circle(mouseX,mouseY,25);//drawing the player (a circle)
   for(let bullet of bullets){//update and draw the bullets
     bullet.y -= 10;//move the bullets down the screen
-    circle(bullet.x,bullet.y,10);
+    circle(mouseX,bullet.y,10);
   }
   //update and draw enemies
   for (let enemy of enemies){
@@ -38,7 +38,7 @@ function draw(){
 
     let newEnemy = {
       x: random(0, width),
-      y: random(-800,0)
+      y: random(-1000,0)
     }
     enemies.push(newEnemy);
     score += 1;
@@ -51,7 +51,7 @@ function draw(){
 function mousePressed(){
   let bullet = {//spawn a new bullet when the user clicks
     x: mouseX,
-    y: height - 50
+    y: mouseY
   }
   bullets.push(bullet);//adds a new bullet to the list
 }
