@@ -2,6 +2,8 @@ let bullets = [];//array to store bullets in
 let enemies = [];//array to store enemies in
 let score = 0;
 let mode;
+
+
 function setup(){
   mode = 0;
   createCanvas(600,600);
@@ -19,7 +21,16 @@ function setup(){
 function draw(){
   clear();
   if(mode == 0){
-    text('Press Enter to Start',300, 300);
+    background(34, 57, 6);
+    fill(98,142,88);
+    rect(85,300,380,80,20);
+    fill(255);
+    textSize(50);
+    textFont('Courier New');
+    text('Bacteria Fighter',60,250);
+    fill(255);
+    textSize(30);
+    text('Press Enter to Start',100, 350);
   }
   if(mode == 1){
     background(51);
@@ -34,7 +45,7 @@ function draw(){
     enemy.y += 2;
     rect(enemy.x, enemy.y, 10);
     if(enemy.y > height){
-      text("You Lose!",width/2, height/2);//text "you lose" to display on the screen
+      text("You Lose!",200, 300);//text "you lose" to display on the screen
       noLoop();//stop draw from happening, stop all interaction
     }
   }
