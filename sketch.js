@@ -13,6 +13,7 @@ function setup(){
 
 function draw(){
   background(51);
+  rectMode(CENTER);
   circle(mouseX,height-50,25);//drawing the player (a circle)
   for(let bullet of bullets){//update and draw the bullets
     bullet.y -= 10;//move the bullets down the screen
@@ -27,7 +28,8 @@ function draw(){
   for(let enemy of enemies){//looping through the enemy list
     for(let bullet of bullets){//looping through the bullet list
       if(dist(enemy.x, enemy.y, bullet.x, bullet.y) < 10){//if the enemy and bullet come in contact..
-        enemies.splice(enemies.indexOf(enemy), 1)//get rid of 1 enemy at index of enemy
+        enemies.splice(enemies.indexOf(enemy), 1);//get rid of 1 enemy at index of enemy
+        bullets.splice(bullets.indexOf(bullet),1);
       }
     }
   }
