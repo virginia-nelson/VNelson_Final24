@@ -1,5 +1,5 @@
 let bullets = [];//array to store bullets in
-let enemies = [];
+let enemies = [];//array to store enemies in
 function setup(){
   createCanvas(400,400);
   for(let i = 0; i < 10; i++){//spawn enemies 
@@ -22,6 +22,14 @@ function draw(){
   for (let enemies of enemies){
     enemy.y += 2;
     rect(enemy.x, enemy.y, 10);
+  }
+
+  for(let enemy of enemies){//looping through the enemy list
+    for(let bullet of bullets){//looping through the bullet list
+      if(dist(enemy.x, enemy.y, bullet.x, bullet.y) < 10){//if the enemy and bullet come in contact..
+        enemies.splice(enemies.indexOf(enemy), 1)//get rid of 1 enemy at index of enemy
+      }
+    }
   }
 }
 
