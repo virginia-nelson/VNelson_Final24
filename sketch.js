@@ -20,7 +20,7 @@ function draw(){
     circle(bullet.x,bullet.y,10);
   }
   //update and draw enemies
-  for (let enemies of enemies){
+  for (let enemy of enemies){
     enemy.y += 2;
     rect(enemy.x, enemy.y, 10);
   }
