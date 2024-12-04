@@ -29,7 +29,13 @@ function draw(){
     for(let bullet of bullets){//looping through the bullet list
       if(dist(enemy.x, enemy.y, bullet.x, bullet.y) < 10){//if the enemy and bullet come in contact..
         enemies.splice(enemies.indexOf(enemy), 1);//get rid of 1 enemy at index of enemy
-        bullets.splice(bullets.indexOf(bullet),1);
+        bullets.splice(bullets.indexOf(bullet),1);//get rid of bullets when the two hit
+
+    let newEnemy = {
+      x: random(0, width),
+      y: random(-800,0)
+    }
+    enemies.push(newEnemy);
       }
     }
   }
