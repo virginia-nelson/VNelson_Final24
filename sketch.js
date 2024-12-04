@@ -1,5 +1,6 @@
 let bullets = [];//array to store bullets in
 let enemies = [];//array to store enemies in
+let score = 0;
 function setup(){
   createCanvas(400,400);
   for(let i = 0; i < 10; i++){//spawn enemies 
@@ -36,9 +37,11 @@ function draw(){
       y: random(-800,0)
     }
     enemies.push(newEnemy);
+    score += 1;
       }
     }
   }
+  text(score, 25, 25)
 }
 
 function mousePressed(){
@@ -49,8 +52,6 @@ function mousePressed(){
   bullets.push(bullet);//adds a new bullet to the list
 }
 
-//goal for this session: get the user to shoot bullets to kill enemies coming towards them
-//enemies will come from the top of the screen for now
 
 
 
