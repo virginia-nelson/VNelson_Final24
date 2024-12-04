@@ -24,6 +24,10 @@ function draw(){
   for (let enemy of enemies){
     enemy.y += 2;
     rect(enemy.x, enemy.y, 10);
+    if(enemy.y > height){
+      text("You Lose!",width/2, height/2);//text "you lose" to display on the screen
+      noLoop();//stop draw from happening, stop all interaction
+    }
   }
 
   for(let enemy of enemies){//looping through the enemy list
@@ -41,7 +45,7 @@ function draw(){
       }
     }
   }
-  text(score, 25, 25)
+  text(score, 15, 25)
 }
 
 function mousePressed(){
