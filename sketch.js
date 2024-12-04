@@ -1,9 +1,13 @@
 let bullets = [];//array to store bullets in
 let enemies = [];//array to store enemies in
 let score = 0;
+let mode;
 function setup(){
+  mode = 0;
   createCanvas(600,600);
-  for(let i = 0; i < 10; i++){//spawn enemies 
+  textSize(21);
+
+  for(let i = 0; i < 5; i++){//spawn enemies 
     let enemy = {
       x: random(0, width),//between 0 and the width of the screen
       y: random(-800,0)//spawn above the screen or nearest to the end
@@ -13,7 +17,12 @@ function setup(){
 }
 
 function draw(){
-  background(51);
+  clear();
+  if(mode == 0){
+    text('Press Enter to Start',300, 300);
+  }
+  if(mode == 1){
+    background(51);
   rectMode(CENTER);
   circle(mouseX,mouseY,25);//drawing the player (a circle)
   for(let bullet of bullets){//update and draw the bullets
@@ -47,6 +56,13 @@ function draw(){
   }
   text(score, 15, 25)
 }
+}
+
+function keyPressed(){
+  if(keyCode === ENTER){
+    mode = 1;
+  }
+}
 
 function mousePressed(){
   let bullet = {//spawn a new bullet when the user clicks
@@ -54,7 +70,9 @@ function mousePressed(){
     y: mouseY
   }
   bullets.push(bullet);//adds a new bullet to the list
-}
+
+  }
+
 
 
 
