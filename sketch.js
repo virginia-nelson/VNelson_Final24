@@ -7,6 +7,11 @@ let img2;
 let img3;
 let soapX;
 let soapY;
+let buttonX = 75;
+let buttonY = 300;
+let buttonWidth = 410;
+let buttonHeight = 80;
+
 
 function preload(){
   img1 = loadImage("./images/soap.png");
@@ -37,20 +42,36 @@ function draw(){
   if(mode == 0){
     background(34, 57, 6);
 
-    let pulse = sin(frameCount * 0.05) * 20;
-    fill(98,142,88);
+    //pulsing effect animation
+    let pulse = sin(frameCount * 0.1) * 5;
+
+    // Hover effect on the button
+    if (mouseX > buttonX && mouseX < buttonX + buttonWidth && mouseY > buttonY && mouseY < buttonY + buttonHeight) {
+      fill(255);  // Highlight the button with yellow when hovered
+    } else {
+      fill(98, 142, 88);;  // Default button color (white)
+    }
+
+    // Draw the button with the updated fill color
     stroke(0);
     strokeWeight(5);
-    rect(75,300,410,80,20);
+    rect(buttonX, buttonY, buttonWidth, buttonHeight, 20);
+
+    //title of game
     fill(255);
+    fill(98, 142, 88);
     strokeWeight(15);
     textSize(80 + pulse);
     textFont('Impact');
-    text('Bacteria Fighter',40,250);
+    text('Bacteria Fighter',30,250);
+
+    //enter text on button
     fill(255);
     textSize(30);
     strokeWeight(5);
     text('Press Enter to Start',170, 350);
+
+    //draw images and icons on the starting page
     image(img3,500,500,120,120);
     image(img3,450,450,70,70);
     image(img2,70,480,70,70);
@@ -99,18 +120,17 @@ function draw(){
 }
 
 function keyPressed(){
-  if(keyCode === ENTER){
-    mode = 1;
+  if(keyCode === 32){
+    let bullet = {//spawn a new bullet when the user clicks
+      x: soapX + 30,
+      y: soapY
+    }
+    bullets.push(bullet);//adds a new bullet to the list  
   }
 }
 
 function mousePressed(){
-  let bullet = {//spawn a new bullet when the user clicks
-    x: soapX + 40,
-    y: soapY
-  }
-  bullets.push(bullet);//adds a new bullet to the list
-
+  mode = 1;
   }
 
 
