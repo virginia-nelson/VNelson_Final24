@@ -2,6 +2,11 @@ let bullets = [];//array to store bullets in
 let enemies = [];//array to store enemies in
 let score = 0;
 let mode;
+let img1;
+
+function preload(){
+  img1 = loadImage("./images/soap.png");
+}
 
 
 function setup(){
@@ -23,17 +28,22 @@ function draw(){
   if(mode == 0){
     background(34, 57, 6);
     fill(98,142,88);
-    rect(85,300,380,80,20);
+    stroke(0);
+    strokeWeight(5);
+    rect(75,300,410,80,20);
     fill(255);
-    textSize(50);
+    strokeWeight(15);
+    textSize(60);
     textFont('Courier New');
-    text('Bacteria Fighter',60,250);
+    text('Bacteria Fighter',10,250);
     fill(255);
     textSize(30);
+    strokeWeight(5);
     text('Press Enter to Start',100, 350);
   }
   if(mode == 1){
-    background(51);
+  background(51);
+  image(img1,10,10,200,200);
   rectMode(CENTER);
   circle(mouseX,mouseY,25);//drawing the player (a circle)
   for(let bullet of bullets){//update and draw the bullets
