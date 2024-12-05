@@ -11,12 +11,19 @@ let buttonX = 75;
 let buttonY = 300;
 let buttonWidth = 410;
 let buttonHeight = 80;
+let gameOver;
+let playAgainButton;
 
 
 function preload(){
   img1 = loadImage("./images/soap.png");
   img2 = loadImage("./images/bubbles.png");
   img3 = loadImage("./images/germ.png");
+  father = loadImage("./images/father_hand.png");
+  mom = loadImage("./images/lady_hand.png");
+  daughter = loadImage("./images/daughter_hand.png");
+  son = loadImage("./images/son_hand.png");
+  baby = loadImage("./images/bbygirl.png");
 }
 
 
@@ -35,6 +42,12 @@ function setup(){
     }
     enemies.push(enemy);//add enemies to the list
   }
+
+  playAgainButton = createButton('play again');
+  playAgainButton.position(215,380);
+  playAgainButton.style('Impact','deeppink');
+  playAgainButton.mousePressed(playAgain);
+  playAgainButton.hide();
 }
 
 function draw(){
@@ -43,7 +56,7 @@ function draw(){
     background(157, 193, 140);
 
     //pulsing effect animation
-    let pulse = sin(frameCount * 0.1) * 5;
+    let pulse = cos(frameCount * 0.1) * 5;
 
     // Hover effect on the button
     if (mouseX > buttonX && mouseX < buttonX + buttonWidth && mouseY > buttonY && mouseY < buttonY + buttonHeight) {
@@ -76,6 +89,12 @@ function draw(){
     image(img3,450,450,70,70);
     image(img2,70,480,70,70);
     image(img1,0,500,100,100);
+
+    image(father,0, 0, 270, 270);
+    image(mom,150, 450, 170, 170);
+    image(daughter,200, 450, 170, 170);
+    image(son,250, 450, 170, 170);
+    image(baby,300, 450, 170, 170);
   }
   if(mode == 1){
   background(51);
@@ -94,11 +113,13 @@ function draw(){
     enemy.y += 3;
     image(img3,enemy.x,enemy.y,40,40);
 
-    if(enemy.y > height){
+    if(enemy.y > 480){
       fill(255, 0, 0);
       text("You Lose!",200, 300);//text "you lose" to display on the screen
       noLoop();//stop draw from happening, stop all interaction
       text("final score: " + score, 175, 350);
+
+      playAgainButton.show();
 
     }
   }
@@ -119,6 +140,13 @@ function draw(){
     }
   }
   text("score: "+score, 15, 45)
+
+
+  image(father,100, 455, 170, 170);
+  image(mom,160, 470, 150, 150);
+  image(daughter,210, 475, 140, 140);
+  image(son,250, 460, 160, 160);
+  image(baby,310, 480, 140, 140);
 }
 }
 
@@ -133,8 +161,27 @@ function keyPressed(){
 }
 
 function mousePressed(){
-  mode = 1;
+  if(mode === 0){
+    mode = 1;
+    playAgainButton.hide();
   }
+  }
+
+function playAgain(){
+  mode = 1;
+  score = 0;
+  enemies =[];
+  bullets = [];
+
+  let newEnemy = {
+    x: random(0, width),
+    y: random(-1000,0)
+  }
+  enemies.push(newEnemy);
+
+  playAgainButton.hide();
+  loop();
+}
 
 
 
