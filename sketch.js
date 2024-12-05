@@ -54,7 +54,7 @@ function draw(){
   background(51);
 
   soapX = mouseX - 50;//updating soap position to follow the mouse, -40 because of soap image size
-  soapY = mouseY - 50;//updating soap y position
+  soapY = 400;//updating soap y position
 
   image(img1,soapX,soapY,100,100);
   rectMode(CENTER);
