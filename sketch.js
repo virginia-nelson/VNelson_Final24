@@ -42,13 +42,17 @@ function draw(){
     rect(75,300,410,80,20);
     fill(255);
     strokeWeight(15);
-    textSize(60);
-    textFont('Courier New');
-    text('Bacteria Fighter',10,250);
+    textSize(80);
+    textFont('Impact');
+    text('Bacteria Fighter',40,250);
     fill(255);
     textSize(30);
     strokeWeight(5);
-    text('Press Enter to Start',100, 350);
+    text('Press Enter to Start',170, 350);
+    image(img3,500,500,120,120);
+    image(img3,450,450,70,70);
+    image(img2,70,480,70,70);
+    image(img1,0,500,100,100);
   }
   if(mode == 1){
   background(51);
@@ -65,7 +69,7 @@ function draw(){
   //update and draw enemies
   for (let enemy of enemies){
     enemy.y += 2;
-    image(img3,enemy.x,enemy.y,20,20);
+    image(img3,enemy.x,enemy.y,40,40);
     // rect(enemy.x, enemy.y, 10);
     if(enemy.y > height){
       text("You Lose!",200, 300);//text "you lose" to display on the screen
@@ -88,7 +92,7 @@ function draw(){
       }
     }
   }
-  text(score, 15, 25)
+  text("score: "+score, 15, 45)
 }
 }
 
