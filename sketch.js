@@ -36,13 +36,15 @@ function draw(){
   clear();
   if(mode == 0){
     background(34, 57, 6);
+
+    let pulse = sin(frameCount * 0.05) * 20;
     fill(98,142,88);
     stroke(0);
     strokeWeight(5);
     rect(75,300,410,80,20);
     fill(255);
     strokeWeight(15);
-    textSize(80);
+    textSize(80 + pulse);
     textFont('Impact');
     text('Bacteria Fighter',40,250);
     fill(255);
