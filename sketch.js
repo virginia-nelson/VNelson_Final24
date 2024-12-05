@@ -3,11 +3,13 @@ let enemies = [];//array to store enemies in
 let score = 0;
 let mode;
 let img1;
+let img2;
 let soapX;
 let soapY;
 
 function preload(){
   img1 = loadImage("./images/soap.png");
+  img2 = loadImage("./images/bubbles.png");
 }
 
 
@@ -49,15 +51,14 @@ function draw(){
   if(mode == 1){
   background(51);
 
-  soapX = mouseX - 40;
-  soapY = mouseY - 40;
-  
+  soapX = mouseX - 50;//updating soap position to follow the mouse, -40 because of soap image size
+  soapY = mouseY - 50;//updating soap y position
 
-  image(img1,soapX,soapY,80,80);
+  image(img1,soapX,soapY,100,100);
   rectMode(CENTER);
   for(let bullet of bullets){//update and draw the bullets
-    bullet.y -= 10;//move the bullets up the screen after firing
-    circle(mouseX,bullet.y,10);
+    bullet.y -= 5;//move the bullets up the screen after firing
+    image(img2,mouseX,bullet.y,40,40);
   }
   //update and draw enemies
   for (let enemy of enemies){
@@ -71,7 +72,7 @@ function draw(){
 
   for(let enemy of enemies){//looping through the enemy list
     for(let bullet of bullets){//looping through the bullet list
-      if(dist(enemy.x, enemy.y, bullet.x, bullet.y) < 10){//if the enemy and bullet come in contact..
+      if(dist(enemy.x, enemy.y, bullet.x, bullet.y) < 40){//if the enemy and bullet come in contact..
         enemies.splice(enemies.indexOf(enemy), 1);//get rid of 1 enemy at index of enemy
         bullets.splice(bullets.indexOf(bullet),1);//get rid of bullets when the two hit
 
@@ -96,7 +97,7 @@ function keyPressed(){
 
 function mousePressed(){
   let bullet = {//spawn a new bullet when the user clicks
-    x: soapX + 40,
+    x: soapX + 100,
     y: soapY
   }
   bullets.push(bullet);//adds a new bullet to the list
