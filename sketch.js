@@ -40,7 +40,7 @@ function setup(){
 function draw(){
   clear();
   if(mode == 0){
-    background(34, 57, 6);
+    background(157, 193, 140);
 
     //pulsing effect animation
     let pulse = sin(frameCount * 0.1) * 5;
@@ -91,12 +91,15 @@ function draw(){
   }
   //update and draw enemies
   for (let enemy of enemies){
-    enemy.y += 2;
+    enemy.y += 3;
     image(img3,enemy.x,enemy.y,40,40);
-    // rect(enemy.x, enemy.y, 10);
+
     if(enemy.y > height){
+      fill(255, 0, 0);
       text("You Lose!",200, 300);//text "you lose" to display on the screen
       noLoop();//stop draw from happening, stop all interaction
+      text("final score: " + score, 175, 350);
+
     }
   }
 
