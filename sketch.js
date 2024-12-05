@@ -3,6 +3,8 @@ let enemies = [];//array to store enemies in
 let score = 0;
 let mode;
 let img1;
+let soapX;
+let soapY;
 
 function preload(){
   img1 = loadImage("./images/soap.png");
@@ -13,6 +15,9 @@ function setup(){
   mode = 0;
   createCanvas(600,600);
   textSize(21);
+
+  soapX = width/2;
+  soapY = height - 80;
 
   for(let i = 0; i < 5; i++){//spawn enemies 
     let enemy = {
@@ -43,11 +48,15 @@ function draw(){
   }
   if(mode == 1){
   background(51);
-  image(img1,10,10,200,200);
+
+  soapX = mouseX - 40;
+  soapY = mouseY - 40;
+  
+
+  image(img1,soapX,soapY,80,80);
   rectMode(CENTER);
-  circle(mouseX,mouseY,25);//drawing the player (a circle)
   for(let bullet of bullets){//update and draw the bullets
-    bullet.y -= 10;//move the bullets down the screen
+    bullet.y -= 10;//move the bullets up the screen after firing
     circle(mouseX,bullet.y,10);
   }
   //update and draw enemies
@@ -87,8 +96,8 @@ function keyPressed(){
 
 function mousePressed(){
   let bullet = {//spawn a new bullet when the user clicks
-    x: mouseX,
-    y: mouseY
+    x: soapX + 40,
+    y: soapY
   }
   bullets.push(bullet);//adds a new bullet to the list
 
