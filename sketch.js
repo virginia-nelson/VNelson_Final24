@@ -69,7 +69,7 @@ function draw(){
     fill(255);
     textSize(30);
     strokeWeight(5);
-    text('Press Enter to Start',170, 350);
+    text('click here to start',170, 350);
 
     //draw images and icons on the starting page
     image(img3,500,500,120,120);
