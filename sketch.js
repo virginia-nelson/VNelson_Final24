@@ -90,11 +90,11 @@ function draw(){
     image(img2,70,480,70,70);
     image(img1,0,500,100,100);
 
-    image(father,0, 0, 270, 270);
-    image(mom,150, 450, 170, 170);
-    image(daughter,200, 450, 170, 170);
-    image(son,250, 450, 170, 170);
-    image(baby,300, 450, 170, 170);
+    image(father,0, -80, 270, 270);
+    image(mom,90, -75, 270, 270);
+    image(daughter,210, 5, 170, 170);
+    image(son,270, 6, 170, 170);
+    image(baby,330, 10, 170, 170);
   }
   if(mode == 1){
   background(51);
