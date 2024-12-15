@@ -1,5 +1,6 @@
 let bullets = [];//array to store bullets in
 let enemies = [];//array to store enemies in
+let enemies2 = [];//array to store to faster/random enemies
 let score = 0;
 let mode;
 let img1;
@@ -15,15 +16,18 @@ let gameOver;
 let playAgainButton;
 
 
+
 function preload(){
   img1 = loadImage("./images/soap.png");
   img2 = loadImage("./images/bubbles.png");
   img3 = loadImage("./images/germ.png");
+  germ2 = loadImage("./images/germ2.png");
   father = loadImage("./images/father_hand.png");
   mom = loadImage("./images/lady_hand.png");
   daughter = loadImage("./images/daughter_hand.png");
   son = loadImage("./images/son_hand.png");
   baby = loadImage("./images/bbygirl.png");
+
 }
 
 
@@ -43,8 +47,16 @@ function setup(){
     enemies.push(enemy);//add enemies to the list
   }
 
+  for(let i = 0; i <5; i++){
+    let enemy = {
+      x: random(0,width),
+      y: random(-800,0)
+    }
+    enemies2.push(enemy);
+  }
+
   playAgainButton = createButton('play again');
-  playAgainButton.position(215,380);
+  playAgainButton.position(315,380);
   playAgainButton.style('Impact','deeppink');
   playAgainButton.mousePressed(playAgain);
   playAgainButton.hide();
@@ -123,6 +135,19 @@ function draw(){
 
     }
   }
+  for(let enemy of enemies2){
+    enemy.y += 3;
+    image(germ2, enemy.x,enemy.y,60,60);
+    if(enemy.y > 480){
+      fill(255, 0, 0);
+      text("You Lose!",200, 300);//text "you lose" to display on the screen
+      noLoop();//stop draw from happening, stop all interaction
+      text("final score: " + score, 175, 350);
+
+      playAgainButton.show();
+    }
+  }
+
 
   for(let enemy of enemies){//looping through the enemy list
     for(let bullet of bullets){//looping through the bullet list
@@ -139,6 +164,24 @@ function draw(){
       }
     }
   }
+
+  for(let enemy of enemies){//looping through the enemy list
+    for(let bullet of bullets){//looping through the bullet list
+      if(dist(enemy.x, enemy.y, bullet.x, bullet.y) < 30){//if the enemy and bullet come in contact..
+        enemies2.splice(enemies.indexOf(enemy), 1);//get rid of 1 enemy at index of enemy
+        bullets.splice(bullets.indexOf(bullet),1);//get rid of bullets when the two hit
+
+    let newEnemy = {
+      x: random(0, width),
+      y: random(-1000,0)
+    }
+    enemies2.push(newEnemy);
+    score += 1;
+      }
+    }
+  }
+
+
   text("score: "+score, 15, 45)
 
 
