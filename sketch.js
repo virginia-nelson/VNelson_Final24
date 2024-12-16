@@ -1,7 +1,6 @@
 let bullets = [];//array to store bullets in
 let enemies = [];//array to store enemies in
 let enemies2 = [];//array to store to faster/random enemies
-let powerUps = [];
 let score = 0;
 let mode;
 let img1;
@@ -32,7 +31,6 @@ function preload(){
   baby = loadImage("./images/bbygirl.png");
   heart = loadImage("./images/heart.png");
   shower = loadImage("./images/shower.jpg");
-  speed = loadImage("./images/speed.png");
 
 }
 
@@ -108,6 +106,8 @@ function draw(){
     image(img2,70,480,70,70);
     image(img1,0,500,100,100);
 
+    // image(germ2, 380, 500, 100, 100);
+
     image(father,0, -80, 270, 270);
     image(mom,90, -75, 270, 270);
     image(daughter,210, 5, 170, 170);
@@ -117,8 +117,8 @@ function draw(){
   if(mode == 1){
   background(shower);
 
-  soapX = mouseX - 50;//updating soap position to follow the mouse, -40 because of soap image size
-  soapY = 400;//updating soap y position
+  soapX = constrain(mouseX - 50, 0, width - 50);//updating soap position to follow the mouse, -40 because of soap image size
+  soapY = constrain(400, 0, height - 100);//updating soap y position
 
   image(img1,soapX,soapY,100,100);
   rectMode(CENTER);
@@ -132,22 +132,6 @@ function draw(){
     image(img2,bullet.x,bullet.y,40,40);
   }
 
-  if(frameCount % 180 === 6){
-    spawnPowerUp();
-  }
-
-  //spawn speed powerUps
-  for(let powerUp of powerUps){
-    if(!powerUp.collected){
-      image(getPowerUpImage(powerUp.type),powerUp.x, powerUp.y, 80, 80);
-      powerUp.y+=2;
-      if (dist(soapX, soapY, powerUp.x, powerUp.y) < 40) {
-        // Power-up collected
-        powerUp.collected = true;
-        activatePowerUp(powerUp.type);
-      }
-    }
-  }
 
 
   //update and draw enemies
@@ -261,29 +245,6 @@ function mousePressed(){
     playAgainButton.hide();
   }
   }
-
-function spawnPowerUp(){
-  let powerUp = {
-    x: random(width),
-    y: random(-800,-100),
-    type: random(["speed"]),
-    collected: false
-
-  };
-  powerUps.push(powerUp);
-}
-
-function getPowerUpImage(type){
-  if(type === "speed"){
-    return speed;
-  }
-}
-
-function activatePowerUp(type) {
-  if (type === "speed") {
-    soapY -= 50;
-  }
-}
 
 function playAgain(){
   mode = 1;
