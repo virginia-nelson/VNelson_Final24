@@ -1,24 +1,24 @@
 let bullets = [];//array to store bullets in
 let enemies = [];//array to store enemies in
 let enemies2 = [];//array to store to faster/random enemies
-let score = 0;
-let mode;
-let img1;
-let img2;
-let img3;
-let soapX;
-let soapY;
-let buttonX = 75;
-let buttonY = 300;
-let buttonWidth = 410;
-let buttonHeight = 80;
-let gameOver;
-let playAgainButton;
-let lives = 3;
+let score = 0;//score
+let mode;//switching between play and opening page
+let img1;//soap
+let img2;//bubbles
+let img3;//germ
+let soapX;//soap x position
+let soapY;//soap y position
+let buttonX = 75;//button positioning on the x
+let buttonY = 300;//button positioning on the y
+let buttonWidth = 410;//width of button
+let buttonHeight = 80;//height of button
+let gameOver;//if the game ends
+let playAgainButton;//play again
+let lives = 3;//life count
 
 
 
-
+//preloading all images
 function preload(){
   img1 = loadImage("./images/soap.png");
   img2 = loadImage("./images/bubbles.png");
@@ -36,11 +36,11 @@ function preload(){
 
 
 function setup(){
-  mode = 0;
+  mode = 0;//mode is the starting page
   createCanvas(600,600);
   textSize(21);
 
-  soapX = width/2;
+  soapX = width/2;//positining the soap bottle
   soapY = height - 80;
 
   for(let i = 0; i < 5; i++){//spawn enemies 
@@ -51,16 +51,18 @@ function setup(){
     enemies.push(enemy);//add enemies to the list
   }
 
-  for(let i = 0; i <5; i++){
+
+  for(let i = 0; i <5; i++){//spawning germ 2 enemies
     let enemy = {
       x: random(0,width),
       y: random(-800,0)
     }
-    enemies2.push(enemy);
+    enemies2.push(enemy);//adding new enemies into the enemies2 array
   }
-
+  
+  //play again button
   playAgainButton = createButton('play again');
-  playAgainButton.position(315,380);
+  playAgainButton.position(600,800);
   playAgainButton.style('Impact','deeppink');
   playAgainButton.mousePressed(playAgain);
   playAgainButton.hide();
@@ -68,7 +70,7 @@ function setup(){
 
 function draw(){
   clear();
-  if(mode == 0){
+  if(mode == 0){//if the page is the starting page...
     background(157, 193, 140);
 
     //pulsing effect animation
@@ -106,7 +108,7 @@ function draw(){
     image(img2,70,480,70,70);
     image(img1,0,500,100,100);
 
-    // image(germ2, 380, 500, 100, 100);
+    image(germ2, 380, 500, 100, 100);
 
     image(father,0, -80, 270, 270);
     image(mom,90, -75, 270, 270);
@@ -114,22 +116,22 @@ function draw(){
     image(son,270, 6, 170, 170);
     image(baby,330, 10, 170, 170);
   }
-  if(mode == 1){
-  background(shower);
+  if(mode == 1){//if the game is in game mode
+  background(shower);//switch background
 
   soapX = constrain(mouseX - 50, 0, width - 50);//updating soap position to follow the mouse, -40 because of soap image size
   soapY = constrain(400, 0, height - 100);//updating soap y position
 
-  image(img1,soapX,soapY,100,100);
-  rectMode(CENTER);
+  image(img1,soapX,soapY,100,100);//loading the soap image
+  rectMode(CENTER);//centering
 
-  for (let i = 0; i < lives; i++) {
-    image(heart, 10 + (i * 40), 60, 50, 50); // Display hearts at top left
+  for (let i = 0; i < lives; i++) {//loading the life count, visually changes each time because of this loop
+    image(heart, 10 + (i * 40), 60, 50, 50);//displaying the hearts on top left
   }
 
   for(let bullet of bullets){//update and draw the bullets
     bullet.y -= 5;//move the bullets up the screen after firing
-    image(img2,bullet.x,bullet.y,40,40);
+    image(img2,bullet.x,bullet.y,40,40);//drawing bubbles
   }
 
 
@@ -166,11 +168,11 @@ function draw(){
     enemy.y += 4;//move the enemy down the screen
     image(germ2, enemy.x,enemy.y,60,60);
 
-    if(enemy.y > 480){
-      lives--;
-      enemies2.splice(enemies2.indexOf(enemy), 1);
-      if (lives <= 0) {
-        endGame();
+    if(enemy.y > 480){//if the enemy gets close to the family of 5
+      lives--;//decrease life count
+      enemies2.splice(enemies2.indexOf(enemy), 1);//get rid of enemy and delete it from the list
+      if (lives <= 0) {//if the life count is at 0
+        endGame();//end the game
     }
   }
 
@@ -181,7 +183,7 @@ function draw(){
         enemies.splice(enemies.indexOf(enemy), 1);//get rid of 1 enemy at index of enemy
         bullets.splice(bullets.indexOf(bullet),1);//get rid of bullets when the two hit
 
-
+    //spawning new enemy
     let newEnemy = {
       x: random(0, width),
       y: random(-1000,0)
@@ -197,7 +199,8 @@ function draw(){
       if(dist(enemy.x, enemy.y, bullet.x, bullet.y) < 50){//if the enemy and bullet come in contact..
         enemies2.splice(enemies2.indexOf(enemy), 1);//get rid of 1 enemy at index of enemy
         bullets.splice(bullets.indexOf(bullet),1);//get rid of bullets when the two hit
-
+    
+    //spawning new enemy2 
     let newEnemy = {
       x: random(0, width),
       y: random(-1000,0)
@@ -209,9 +212,9 @@ function draw(){
   }
 
 
-  text("score: "+score, 15, 45)
+  text("score: "+score, 15, 45)//displaying the score
 
-
+  //images of family at bottom of play screen
   image(father,100, 455, 170, 170);
   image(mom,160, 470, 150, 150);
   image(daughter,210, 475, 140, 140);
@@ -221,15 +224,15 @@ function draw(){
 }
 }
 
-function endGame() {
+function endGame() {//function end game when it is called
   fill(255, 0, 0);
   text("Game Over!", 200, 300);
-  noLoop();  // Stop the game
+  noLoop();//stop the game
   text("Final Score: " + score, 175, 350);
-  playAgainButton.show();  // Show the play again button
+  playAgainButton.show();s//show the play again button
 }
 
-function keyPressed(){
+function keyPressed(){//if the space bar is pressed
   if(keyCode === 32){
     let bullet = {//spawn a new bullet when the user clicks
       x: soapX + 30,
@@ -239,29 +242,29 @@ function keyPressed(){
   }
 }
 
-function mousePressed(){
-  if(mode === 0){
+function mousePressed(){//if the mouse is pressed
+  if(mode === 0){//switch scenes from starting page to play page
     mode = 1;
-    playAgainButton.hide();
+    playAgainButton.hide();//hide the play button
   }
   }
 
-function playAgain(){
+function playAgain(){//resetting the game when play again is clicked
   mode = 1;
   score = 0;
   lives = 3;
-  enemies =[];
+  enemies =[];//resetting all arrays to start over
   enemies2 = [];
   bullets = [];
 
-  let newEnemy = {
+  let newEnemy = {//new enemie spawning
     x: random(0, width),
     y: random(-1000,0)
   }
   enemies.push(newEnemy);
   enemies2.push(newEnemy);
 
-  playAgainButton.hide();
+  playAgainButton.hide();//hide the play again button 
   loop();
 }
 
