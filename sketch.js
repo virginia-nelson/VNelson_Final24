@@ -14,6 +14,7 @@ let buttonWidth = 410;
 let buttonHeight = 80;
 let gameOver;
 let playAgainButton;
+let lives = 3;
 
 
 
@@ -27,6 +28,7 @@ function preload(){
   daughter = loadImage("./images/daughter_hand.png");
   son = loadImage("./images/son_hand.png");
   baby = loadImage("./images/bbygirl.png");
+  heart = loadImage("./images/heart.png");
 
 }
 
@@ -116,10 +118,16 @@ function draw(){
 
   image(img1,soapX,soapY,100,100);
   rectMode(CENTER);
+
+  for (let i = 0; i < lives; i++) {
+    image(heart, 80 + (i * 40), 20, 30, 30); // Display hearts at top left
+  }
+
   for(let bullet of bullets){//update and draw the bullets
     bullet.y -= 5;//move the bullets up the screen after firing
     image(img2,bullet.x,bullet.y,40,40);
   }
+
 
 
   //update and draw enemies
@@ -155,12 +163,14 @@ function draw(){
     enemy.y += 4;//move the enemy down the screen
     image(germ2, enemy.x,enemy.y,60,60);
     if(enemy.y > 480){
-      fill(255, 0, 0);
-      text("You Lose!",200, 300);//text "you lose" to display on the screen
-      noLoop();//stop draw from happening, stop all interaction
-      text("final score: " + score, 175, 350);
-
-      playAgainButton.show();
+      lives--;
+      if (lives <= 0) {
+        fill(255, 0, 0);
+        text("Game Over!", 200, 300);
+        noLoop(); // Stop the game
+        text("final score: " + score, 175, 350);
+        playAgainButton.show(); // Show the play again button when the player loses all lives
+      }
     }
   }
 
@@ -168,8 +178,17 @@ function draw(){
   for(let enemy of enemies){//looping through the enemy list
     for(let bullet of bullets){//looping through the bullet list
       if(dist(enemy.x, enemy.y, bullet.x, bullet.y) < 30){//if the enemy and bullet come in contact..
+        lives--;
         enemies.splice(enemies.indexOf(enemy), 1);//get rid of 1 enemy at index of enemy
         bullets.splice(bullets.indexOf(bullet),1);//get rid of bullets when the two hit
+
+        if (lives <= 0) {
+          fill(255, 0, 0);
+          text("Game Over!", 200, 300);
+          noLoop(); // Stop the game
+          text("final score: " + score, 175, 350);
+          playAgainButton.show(); // Show the play again button when the player loses all lives
+        }
 
     let newEnemy = {
       x: random(0, width),
@@ -184,9 +203,17 @@ function draw(){
   for(let enemy of enemies2){//looping through the enemy list
     for(let bullet of bullets){//looping through the bullet list
       if(dist(enemy.x, enemy.y, bullet.x, bullet.y) < 50){//if the enemy and bullet come in contact..
+        lives--;
         enemies2.splice(enemies2.indexOf(enemy), 1);//get rid of 1 enemy at index of enemy
         bullets.splice(bullets.indexOf(bullet),1);//get rid of bullets when the two hit
 
+        if (lives <= 0) {
+          fill(255, 0, 0);
+          text("Game Over!", 200, 300);
+          noLoop(); // Stop the game
+          text("final score: " + score, 175, 350);
+          playAgainButton.show(); // Show the play again button when the player loses all lives
+        }
     let newEnemy = {
       x: random(0, width),
       y: random(-1000,0)
@@ -230,6 +257,7 @@ function mousePressed(){
 function playAgain(){
   mode = 1;
   score = 0;
+  lives = 3;
   enemies =[];
   enemies2 = [];
   bullets = [];
