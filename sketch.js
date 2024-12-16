@@ -120,6 +120,8 @@ function draw(){
     bullet.y -= 5;//move the bullets up the screen after firing
     image(img2,bullet.x,bullet.y,40,40);
   }
+
+
   //update and draw enemies
   for (let enemy of enemies){
     enemy.y += 3;
@@ -138,7 +140,19 @@ function draw(){
 
   //if red germ passes and gets close to the hands...
   for(let enemy of enemies2){
-    enemy.y += 3;
+    if (!enemy.xSpeed) {
+      enemy.xSpeed = random(2, 5);//random speed between 2 and 5
+      enemy.xDirection = random() > 0.5 ? 1 : -1;//randomly choose a left (-1) or right (1) direction
+    }
+    
+    enemy.x += enemy.xSpeed * enemy.xDirection;//make the enemy move back and forth horizontally in a random way
+
+    if (enemy.x < 0 || enemy.x > width) {//make the enemy bounce off the edges of the screen
+      enemy.xDirection *= -1; //reverse direction when reaching left or right edge
+      enemy.x = constrain(enemy.x, 0, width); //ensure it stays within bounds
+    }
+
+    enemy.y += 4;//move the enemy down the screen
     image(germ2, enemy.x,enemy.y,60,60);
     if(enemy.y > 480){
       fill(255, 0, 0);
@@ -195,6 +209,7 @@ function draw(){
 }
 }
 
+
 function keyPressed(){
   if(keyCode === 32){
     let bullet = {//spawn a new bullet when the user clicks
@@ -224,6 +239,7 @@ function playAgain(){
     y: random(-1000,0)
   }
   enemies.push(newEnemy);
+  enemies2.push(newEnemy);
 
   playAgainButton.hide();
   loop();
