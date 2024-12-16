@@ -18,6 +18,7 @@ let lives = 3;
 
 
 
+
 function preload(){
   img1 = loadImage("./images/soap.png");
   img2 = loadImage("./images/bubbles.png");
@@ -29,6 +30,7 @@ function preload(){
   son = loadImage("./images/son_hand.png");
   baby = loadImage("./images/bbygirl.png");
   heart = loadImage("./images/heart.png");
+  shower = loadImage("./images/shower.jpg");
 
 }
 
@@ -111,7 +113,7 @@ function draw(){
     image(baby,330, 10, 170, 170);
   }
   if(mode == 1){
-  background(51);
+  background(shower);
 
   soapX = mouseX - 50;//updating soap position to follow the mouse, -40 because of soap image size
   soapY = 400;//updating soap y position
