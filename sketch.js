@@ -135,6 +135,8 @@ function draw(){
 
     }
   }
+
+  //if red germ passes and gets close to the hands...
   for(let enemy of enemies2){
     enemy.y += 3;
     image(germ2, enemy.x,enemy.y,60,60);
@@ -165,10 +167,10 @@ function draw(){
     }
   }
 
-  for(let enemy of enemies){//looping through the enemy list
+  for(let enemy of enemies2){//looping through the enemy list
     for(let bullet of bullets){//looping through the bullet list
-      if(dist(enemy.x, enemy.y, bullet.x, bullet.y) < 30){//if the enemy and bullet come in contact..
-        enemies2.splice(enemies.indexOf(enemy), 1);//get rid of 1 enemy at index of enemy
+      if(dist(enemy.x, enemy.y, bullet.x, bullet.y) < 50){//if the enemy and bullet come in contact..
+        enemies2.splice(enemies2.indexOf(enemy), 1);//get rid of 1 enemy at index of enemy
         bullets.splice(bullets.indexOf(bullet),1);//get rid of bullets when the two hit
 
     let newEnemy = {
@@ -214,6 +216,7 @@ function playAgain(){
   mode = 1;
   score = 0;
   enemies =[];
+  enemies2 = [];
   bullets = [];
 
   let newEnemy = {
